@@ -229,7 +229,7 @@ module Resque
           queues.each do |queue_name|
             # Redis::Namespace.new support as well as Redis.new
             namespace = redis.respond_to?(:namespace) ? redis.namespace : nil
-            Resque.enqueue_to(queue_name, HeartbeatJob, heartbeat_key_for(queue_name), redis.client.host, redis.client.port, namespace, Time.now.to_i )
+            Resque.enqueue_to(queue_name, HeartbeatJob, heartbeat_key_for(queue_name), redis.connection[:host], redis.connection[:port], namespace, Time.now.to_i )
           end
         end
       end
@@ -317,4 +317,3 @@ module Resque
     end
   end
 end
-
